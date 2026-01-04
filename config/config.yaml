@@ -1,0 +1,55 @@
+# AWS Configuration
+aws:
+  region: us-east-1  # Change to your region
+  profile: default   # Change if using named profile
+  
+# Analysis Settings
+analysis:
+  ebs:
+    snapshot_age_days: 90  # Flag snapshots older than this
+  
+  ec2:
+    cpu_threshold: 5  # Flag instances with avg CPU below this %
+    analysis_days: 7   # Analyze last 7 days of metrics
+  
+  elastic_ip:
+    check_unused: true
+  
+# Report Settings
+report:
+  output_file: cost_analysis_report.html
+  currency: USD
+  
+# Cost Estimates (USD per month)
+pricing:
+  ebs_volume_per_gb: 0.10
+  ebs_snapshot_per_gb: 0.05
+  elastic_ip_unused: 3.60
+  
+  # EC2 instance costs (approximate, you can update these)
+  ec2_instances:
+    t2.micro: 8.35
+    t2.small: 16.79
+    t2.medium: 33.58
+    t3.micro: 7.59
+    t3.small: 15.18
+    t3.medium: 30.37
+    t3.large: 60.74
+    t3.xlarge: 121.47
+
+
+    # Slack Notifications
+slack:
+  enabled: false  # Set to true to enable
+  webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"  # Add your Slack webhook URL here
+  
+  # Alert triggers
+  triggers:
+    cost_spike_threshold: 30  # Alert if daily cost increased by 30%
+    high_savings_threshold: 500  # Alert if potential savings > $500
+    critical_issues: true  # Alert on critical severity issues
+  
+  # Alert settings
+  send_summary: true  # Send summary report
+  send_details: true  # Send detailed breakdown
+  mention_channel: false  # Use @channel mention
